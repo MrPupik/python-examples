@@ -1,23 +1,42 @@
-__doc__ = "this is the classes module. here we test OOP stuff"
+__doc__ = "this is the classes module. here we show OOP stuff"
 
-class poop:
-    def __init__(self) -> None:
-        self.p = "hooo"
 
-    @classmethod
-    def peep(self):
-        pass
+class Car:
+    NUMBER_OF_WHEELS = 4
+    FUEL_PER_KM = 0.05
 
-    @staticmethod
-    def poopi():
-        print("static")
+    def __init__(self, fuel: float, kilometraj: int) -> None:
+        self.fuel = fuel
+        self.distance = kilometraj
 
-    def st():
-        pass
+    def beep(self):
+        print("*********************\n***** BEEEEEEEP *****\n*********************")
 
-    @staticmethod
-    def ft(self):
-        pass
+    def drive(self, km: int):
+        """### drive `km` kilometers.
+        if not enough fuel - driving until no more fuel
+
+        returns distance travled"""
+        fuel_needed = km * 0.05
+        if fuel_needed > self.fuel:
+            length = int(self.fuel / Car.FUEL_PER_KM)
+            self.fuel = 0
+        else:
+            length = km
+        self.distance += length
+        return length
+
+    def refuel(self, fuel: int):
+        """
+        refuels
+
+        return current fuel
+        """
+        self.fuel += fuel
+        return self.fuel
+
+
+b = Car(10, 0)
 
 
 class AmericanGrade(int):
@@ -33,7 +52,6 @@ class AmericanGrade(int):
         return super().__new__(cls, val)
 
     def __init__(self, g) -> None:
-        print("happen")
         super().__init__()
 
     def __repr__(self) -> str:
