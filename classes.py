@@ -5,7 +5,7 @@ class Car:
     NUMBER_OF_WHEELS = 4
     FUEL_PER_KM = 0.05
 
-    def __init__(self, fuel: float, kilometraj: int) -> None:
+    def __init__(self, fuel: float, kilometraj=0) -> None:
         self.fuel = fuel
         self.distance = kilometraj
 
@@ -23,6 +23,7 @@ class Car:
             self.fuel = 0
         else:
             length = km
+            self.fuel -= fuel_needed
         self.distance += length
         return length
 
@@ -35,8 +36,30 @@ class Car:
         self.fuel += fuel
         return self.fuel
 
+    @staticmethod  # without this i could car1.set_fuel_per_km()
+    def set_fuel_per_km(new_value):
+        Car.FUEL_PER_KM = new_value
 
-b = Car(10, 0)
+
+class Taxi(Car):
+    KM_COST = 2
+
+    def __init__(self, money, fuel: float, kilometraj=0) -> None:
+        self.__money = money
+        super().__init__(fuel, kilometraj=kilometraj)
+
+    def drive(self, km):
+        l = super().drive(km)
+        self.money += l * self.KM_COST
+        if l == km:
+            print(f"Thanks, it was {km * self.KM_COST} shekels. good day !")
+        elif l > 0:
+
+            print(
+                f"Terribly sorry, but We drove only {l} km, i charged you {km * self.KM_COST}. good day !"
+            )
+        else:
+            print("sorry, i can't take you today.")
 
 
 class AmericanGrade(int):
