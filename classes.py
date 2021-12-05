@@ -48,9 +48,17 @@ class Taxi(Car):
         self.__money = money
         super().__init__(fuel, kilometraj=kilometraj)
 
+    @property
+    def money(self):
+        print("not ur buisness. but if u insist: " + self.__money * 2)
+
+    @money.setter
+    def money(self, coins):
+        self.__money += coins
+
     def drive(self, km):
         l = super().drive(km)
-        self.money += l * self.KM_COST
+        self.__money += l * self.KM_COST
         if l == km:
             print(f"Thanks, it was {km * self.KM_COST} shekels. good day !")
         elif l > 0:
@@ -60,6 +68,25 @@ class Taxi(Car):
             )
         else:
             print("sorry, i can't take you today.")
+
+
+class A(type):
+    def __call__(cls, *args, **kwds):
+        cls.secret = "hi"
+        return super(A, cls).__call__(*args, **kwds)
+
+
+class B:
+    def __call__(self, *args, **kwds):
+        print("sorry, im a singltone")
+        return
+
+
+class C(B, metaclass=A):
+    pass
+
+
+a = C()
 
 
 class AmericanGrade(int):
