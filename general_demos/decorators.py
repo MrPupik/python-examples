@@ -43,3 +43,27 @@ def myTest(func=None, name=None, priority=3) -> FunctionType:
     else:
         # im a decorator factory
         return decorator
+
+
+def ProgressBar(func):
+    prog_char = "#"
+
+    def decorator(*args, **kwargs):
+        result = func(*args, **kwargs)
+        print(prog_char, end="", flush=True)
+        return result
+
+    return decorator
+
+
+@ProgressBar
+def slow_func():
+    from time import sleep
+
+    sleep(0.5)
+
+
+if __name__ == "__main__":
+    print("running:")
+    for i in range(20):
+        slow_func()

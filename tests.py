@@ -1,4 +1,4 @@
-from general_demos.test_utils import myTest, TEST_FAILED_EXCEPTION
+from general_demos.decorators import myTest, TEST_FAILED_EXCEPTION
 
 __doc__ = """
 hi ! check this out
