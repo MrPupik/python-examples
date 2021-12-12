@@ -1,4 +1,10 @@
-from test_utils import myTest, TEST_FAILED_EXCEPTION
+from general_demos.test_utils import myTest, TEST_FAILED_EXCEPTION
+
+__doc__ = """
+hi ! check this out
+>>> print(5)
+5
+"""
 
 
 @myTest(priority=1)
@@ -23,3 +29,9 @@ if __name__ == "__main__":
     first_test()
     second_test()
     failed_test()
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()
