@@ -18,3 +18,27 @@ def genfilterby(num):
         return [n for n in iter if n % num == 0]
 
     return filter
+
+
+def avg(lst):
+    if lst:
+        return sum(lst) / len(lst)
+
+
+def get_nums():
+    # num = None
+    lst = []
+    num = input("enter num\n")
+    while num != "finish":
+        lst.append(int(num))
+        num = input("enter num\n")
+
+    return lst
+
+
+def manager():
+    lst = get_nums()
+    print(avg(lst))
+
+
+manager()

@@ -1,6 +1,9 @@
 __doc__ = "this is the classes module. here we show OOP stuff"
 
 
+# inheritance
+
+
 class Car:
     NUMBER_OF_WHEELS = 4
     FUEL_PER_KM = 0.05

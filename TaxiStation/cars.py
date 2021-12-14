@@ -1,6 +1,8 @@
 class Car:
     NUMBER_OF_WHEELS = 4
     FUEL_PER_KM = 0.05
+    SEATS = 4
+
 
     def __init__(self, fuel: float, kilometraj=0) -> None:
         self.fuel = fuel
@@ -62,7 +64,8 @@ class Taxi(Car):
         elif l > 0:
 
             print(
-                f"Terribly sorry, but We drove only {l} km, i charged you {km * self.KM_COST}. good day !"
+                f"Terribly sorry, but We drove only {l} km,
+                 i charged you {km * self.KM_COST}. good day !"
             )
         else:
             print("sorry, i can't take you today.")
