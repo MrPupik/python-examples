@@ -1,10 +1,13 @@
+from TaxiStation.utils import get_type_name
+
+
 class Car:
     NUMBER_OF_WHEELS = 4
     FUEL_PER_KM = 0.05
     SEATS = 4
 
-
     def __init__(self, fuel: float, kilometraj=0) -> None:
+        self.available = True
         self.fuel = fuel
         self.distance = kilometraj
 
@@ -39,6 +42,9 @@ class Car:
     def set_fuel_per_km(new_value):
         Car.FUEL_PER_KM = new_value
 
+    def __repr__(self) -> str:
+        return f"{get_type_name(self)}: {self.fuel} fuel, {self.distance} kilometraj"
+
 
 class Taxi(Car):
     KM_COST = 2
@@ -64,8 +70,7 @@ class Taxi(Car):
         elif l > 0:
 
             print(
-                f"Terribly sorry, but We drove only {l} km,
-                 i charged you {km * self.KM_COST}. good day !"
+                f"Terribly sorry, but We drove only {l} km, i charged you {km * self.KM_COST}. good day !"
             )
         else:
             print("sorry, i can't take you today.")
