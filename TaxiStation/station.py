@@ -1,6 +1,7 @@
 from TaxiStation.cars import Car, Taxi, Lemo, Van, Minibus
 from copy import deepcopy
 from logging import warning
+from TaxiStation.customer import Customer, CustomerType
 
 from TaxiStation.utils import get_type_name
 
@@ -53,6 +54,9 @@ class CarFleet:
     def to_dict(self):
         return deepcopy(self._data)
 
+    def car_types(self):
+        return tuple(self._data.keys)
+
     def from_dict(self, cars_dict):
         for lst in cars_dict:
             self[""] = lst
@@ -81,6 +85,39 @@ class TaxiStation:
         if not cars_dict:
             cars_dict = {name: [] for name in car_types_by_name.keys()}
         self._cars = CarFleet.validate_cars_dict(cars_dict, False)
+
+    def work(self, clients: list[Customer]):
+
+        customers = clients.copy()
+        waiting_customers = []
+        while customers:
+            # get first
+            cust = customers.pop(0)
+
+            # decide what is the right type
+            if cust.type == CustomerType.buisness:
+                wanted_type = Lemo
+            else:
+                if cust.num_of_passengers <= Taxi.SEATS:
+                    wanted_type = Taxi
+                elif cust.num_of_passengers <= Van.SEATS:
+                    wanted_type = Van
+                elif cust.num_of_passengers <= Minibus.SEATS:
+                    wanted_type = Minibus
+                else:
+                    raise NotImplementedError("handle this")
+                wanted_type = get_type_name(wanted_type)
+
+        # find a taxi
+        avl_car = self.cars[wanted_type]
+        if avl_car:
+            avl_car.drive()
+        else:
+            if wanted_type in self.cars.car_types():
+                # he will wait for the right taxi to return
+                waiting_customers.append(cust)
+            else:
+                raise NotImplementedError("handle this")
 
     @property
     def cars(self):
