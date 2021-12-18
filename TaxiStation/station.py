@@ -23,7 +23,7 @@ class CarFleet:
         else:
             type_name = get_type_name(value)
             if type_name != key or key not in car_types_by_name.keys():
-                raise ValueError(
+                raise TypeError(
                     f"{CarFleet.__name__} accepts only supported keys and values. got '{key}:{type_name}'"
                 )
             else:

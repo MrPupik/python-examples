@@ -29,7 +29,7 @@ class TestTaxi:
         t.drive(10)
         assert t.money == 10 * t.KM_COST * 0.9
 
-    def test_lemo_price(self):
+    def test_Lemo_price(self):
         l = Lemo(10)
         assert l.KM_COST != Taxi.KM_COST
         print(l.KM_COST)

@@ -13,9 +13,9 @@ class TestCarFleet:
         c["Minibus"] = Minibus(Minibus)
 
         # error
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             c["Taxi"] = Lemo(10)
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             c["Big bus"] = Minibus(10)
 
         # get
@@ -27,6 +27,12 @@ class TestCarFleet:
         # get when empty
         c = CarFleet()
         assert c["Minibus"] is None
+
+        # get when non avialble
+        van = Van(10)
+        van.available = False
+        c["Van"] = van
+        assert c["Van"] is None
 
     def test_list(self):
 
