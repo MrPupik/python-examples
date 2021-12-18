@@ -27,6 +27,32 @@ class Person:
             print("thief!")
 
 
+# inheritance
+class Animal():
+    EAT_HUMANS = True
+
+    def __init__(self, speed, streangth, vegenterian=True) -> None:
+        self.vegeterian = vegenterian
+        self.speed = speed
+        self.streangth = streangth
+
+    def run(self):
+        pass
+
+    def eat(self, food):
+        return self.vegeterian and food == "veggie"
+
+    def dangeraous(self):
+        factor = 2 if self.EAT_HUMANS else 0.5
+        return factor * self.streangth
+
+
+class Dog(Animal):
+    def __init__(self, speed, streangth, dog_type, vegenterian=True) -> None:
+        self.type = dog_type
+        super().__init__(speed, streangth, vegenterian=vegenterian)
+
+
 class Car:
     NUMBER_OF_WHEELS = 4
     FUEL_PER_KM = 0.05
