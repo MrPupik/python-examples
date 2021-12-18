@@ -1,7 +1,30 @@
 __doc__ = "this is the classes module. here we show OOP stuff"
 
 
-# inheritance
+# private
+from types import new_class
+
+
+class Person:
+    def __init__(self, name: str, id: int | str, age: int) -> None:
+        self.name = name
+        self._id = str(id)
+        self._age = age
+
+    # def __getattribute__(self, __name: str):
+    #     return 5
+
+    @property
+    def id(self):
+        return "*****" + str(self._id)[-3:]
+
+    @id.setter
+    def id(self, new_value):
+        new_value = str(new_value)
+        if self._id[:3] == new_value[:3]:
+            self._id = new_value
+        else:
+            print("thief!")
 
 
 class Car:
