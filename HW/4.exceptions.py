@@ -10,6 +10,6 @@ class bar:
         self.min_age = min_age
 
     def enter(self, person: Person):
-        if person._age <= self.min_age:
+        if person.age <= self.min_age:
             raise UnderAgedException("this person is only "+person._age)
         return "welcom :)"

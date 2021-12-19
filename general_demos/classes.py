@@ -9,7 +9,7 @@ class Person:
     def __init__(self, name: str, id: int | str, age: int) -> None:
         self.name = name
         self._id = str(id)
-        self._age = age
+        self.age = age
 
     # def __getattribute__(self, __name: str):
     #     return 5
@@ -25,6 +25,18 @@ class Person:
             self._id = new_value
         else:
             print("thief!")
+
+    def __gt__(self, other: object):
+        return self.age > other.age
+
+    def __lt__(self, other: object):
+        return self.age < other.age
+
+    def __eq__(self, other: object) -> bool:
+        return self.age == other.age
+
+    def __repr__(self) -> str:
+        return f"hi my name is {self.name} and im {self.age} years old"
 
 
 # inheritance
@@ -51,6 +63,12 @@ class Dog(Animal):
     def __init__(self, speed, streangth, dog_type, vegenterian=True) -> None:
         self.type = dog_type
         super().__init__(speed, streangth, vegenterian=vegenterian)
+
+
+class Fish(Animal):
+    def run():
+        print("adding code that relevant underwater")
+        return super().run()
 
 
 class Car:

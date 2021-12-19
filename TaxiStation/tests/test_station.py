@@ -1,4 +1,6 @@
-from TaxiStation.station import CarFleet
+from os import stat
+from TaxiStation.station import CarFleet, TaxiStation
+from TaxiStation.customer import Customer, CustomerType
 from TaxiStation.cars import *
 import pytest
 
@@ -64,3 +66,43 @@ class TestCarFleet:
             d = c.to_dict()
             d["Taxi"] = []
             assert d["Taxi"]
+
+
+class TestWork:
+    def test_sanity(self):
+        cust_list = [
+            Customer(CustomerType.private, 2, 60), Customer(
+                CustomerType.private, 10, 60),
+            Customer(CustomerType.private, 15, 60), Customer(
+                CustomerType.buisness, 5, 60)
+        ]
+
+        station = TaxiStation(
+            CarFleet([Taxi(100), Lemo(100), Minibus(100), Van(100)]))
+
+        station.work(cust_list)
+
+        assert not station.disappointed
+
+    def test_wrong_pass_quantity(self):
+        cust_list = [
+            Customer(CustomerType.private, 90, 60), Customer(
+                CustomerType.buisness, 150, 60),
+        ]
+
+        station = TaxiStation(
+            CarFleet([Taxi(100), Lemo(100), Minibus(100), Van(100)]))
+
+        station.work(cust_list)
+        assert len(station.disappointed) == 2
+
+    def test_missing_car_types(self):
+        cust_list = [
+            Customer(CustomerType.private, 2, 60), Customer(
+                CustomerType.buisness, 10, 60),
+        ]
+        station = TaxiStation(
+            CarFleet([Taxi(10)]))
+
+        station.work(cust_list)
+        assert len(station.disappointed) == 1
