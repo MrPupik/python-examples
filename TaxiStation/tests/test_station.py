@@ -106,3 +106,16 @@ class TestWork:
 
         station.work(cust_list)
         assert len(station.disappointed) == 1
+
+
+cust_list = [
+    Customer(CustomerType.private, 2, 60), Customer(
+        CustomerType.private, 10, 60),
+    Customer(CustomerType.private, 15, 60), Customer(
+        CustomerType.buisness, 5, 60)
+]
+    
+station = TaxiStation(
+    CarFleet([Taxi(100), Lemo(100), Minibus(100), Van(100)]))
+
+station.work(cust_list)

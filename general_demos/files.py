@@ -35,6 +35,14 @@ with open('example.txt', 'a') as file:
     file.write('\ngood evening')
 
 
+# work with cursor
+with open('example.txt', 'w') as file:
+    file.write('good afternoon')
+    file.flush()
+    file.seek(5)
+    file.write('---')
+
+
 # write cannot read
 try:
     with open('example.txt', 'w') as file:
@@ -48,6 +56,19 @@ except UnsupportedOperation:
 with open('example.txt', 'w+') as file:
     file.write('\n how are you?')
     content = file.read()
+    lines = ['hello there many times !\n' for i in range(50)]
+    file.seek(0)
+    file.writelines(lines)
+
+# iterate over file
+with open('example.txt', 'r+') as file:
+    count = 0
+    lines = []
+    for row in file:
+        count += 1
+        lines.append(row[:-1]+' '+str(count)+'\n')
+    file.seek(0)
+    file.writelines(lines)
 
 
 my_daya = {"mr beast": 100000, "pewdipy": 200000}
