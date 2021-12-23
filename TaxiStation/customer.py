@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from TaxiStation.recipts_factory import ReciptType
+from TaxiStation.recipts import ReciptType
 
 
 @dataclass

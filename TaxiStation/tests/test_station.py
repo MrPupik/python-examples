@@ -1,3 +1,4 @@
+import timeit
 from os import stat
 from TaxiStation.station import CarFleet, TaxiStation
 from TaxiStation.customer import Customer, CustomerType
@@ -72,7 +73,7 @@ class TestWork:
     def test_sanity(self):
         cust_list = [
             Customer(CustomerType.private, 2, 60), Customer(
-                CustomerType.private, 10, 60),
+                CustomerType.private, 150, 60),
             Customer(CustomerType.private, 15, 60), Customer(
                 CustomerType.buisness, 5, 60)
         ]
@@ -109,13 +110,16 @@ class TestWork:
 
 
 cust_list = [
-    Customer(CustomerType.private, 2, 60), Customer(
-        CustomerType.private, 10, 60),
-    Customer(CustomerType.private, 15, 60), Customer(
-        CustomerType.buisness, 5, 60)
+    Customer(CustomerType.private, 2, 21), Customer(
+        CustomerType.private, 10, 10),
+    Customer(CustomerType.private, 15, 10), Customer(
+        CustomerType.buisness, 5, 10)
 ]
-    
-station = TaxiStation(
-    CarFleet([Taxi(100), Lemo(100), Minibus(100), Van(100)]))
 
-station.work(cust_list)
+station = TaxiStation(
+    CarFleet([Taxi(1), Lemo(100), Minibus(100), Van(100), Taxi(1)]))
+
+starttime = timeit.default_timer()
+
+station.work_threaded(cust_list)
+print("time :", timeit.default_timer() - starttime)

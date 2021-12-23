@@ -1,3 +1,4 @@
+from time import sleep
 from TaxiStation.utils import get_type_name
 
 
@@ -27,6 +28,7 @@ class Car:
             length = km
             self.fuel -= fuel_needed
         self.distance += length
+        sleep(length*0.5)
         return length
 
     def refuel(self, fuel: int):
@@ -36,6 +38,9 @@ class Car:
         return current fuel
         """
         self.fuel += fuel
+
+        # update availability
+        self.available = self.fuel > 0
         return self.fuel
 
     @staticmethod  # without this i could car1.set_fuel_per_km()
@@ -68,12 +73,13 @@ class Taxi(Car):
         if l == km:
             print(f"Thanks, it was {km * self.KM_COST} shekels. good day !")
         elif l > 0:
-
             print(
                 f"Terribly sorry, but We drove only {l} km, i charged you {km * self.KM_COST}. good day !"
             )
         else:
             print("sorry, i can't take you today.")
+        # update availability
+        self.available = self.fuel > 0
         return (price, l)
 
 

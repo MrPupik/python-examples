@@ -1,10 +1,13 @@
 from sys import stdout
 from TaxiStation.cars import Car, Taxi, Lemo, Van, Minibus
+import threading
+from time import sleep
 from copy import deepcopy
+from queue import Queue
 
 import logging
 from TaxiStation.customer import Customer, CustomerType
-from TaxiStation.recipts_factory import Transcation, write_recipt
+from TaxiStation.recipts import Transcation, write_recipt
 
 from TaxiStation.utils import get_type_name
 
@@ -81,30 +84,95 @@ class CarFleet:
         )
 
 
+MAX_CUST = 100
+driver_lock = threading.Lock()
+clrek_lock = threading.Lock()
+trip_queue = Queue(MAX_CUST)
+cust_queue = Queue(MAX_CUST)
+finished_custs = Queue(MAX_CUST)
+
+
 class TaxiStation:
     MAX_CARS_NUMBER = 30
     HELP_WAITING = True
+    THRAD_NUMBER = 3
 
     def __init__(self, cars: CarFleet) -> None:
         self.cars = cars
         self.money = 0
         self.owed_money = 0
-        self.transctions = {}
+        self.transcations = {}
+
+    def work_threaded(self, clients: list[Customer], trip_number=0):
+        self.disappointed = []
+        self.trip_number = trip_number
+        customers = clients.copy()
+      # send drivers to work
+        drivers = []
+        for i in range(1, self.THRAD_NUMBER+1):
+
+            driver = Driver(
+                f'driver-{i}', self.transcations)
+            drivers.append(driver)
+            driver.start()
+
+        clerk = Clerk(self.cars, self.disappointed)
+        clerk.start()
+
+        accountent = Accountent(self.money, self.transcations)
+        accountent.start()
+
+        while customers:
+            # get first
+            self.trip_number += 1
+            cust = None
+            waiting_cust = None
+            if customers:
+                cust = customers.pop(0)
+                self.transcations[self.trip_number] = []
+
+                # initail help vars
+                cust.trip_number = self.trip_number
+                cust.bill = 0
+
+                info(
+                    f"new customer {cust.trip_number}, type:{cust.type} quantity:{cust.num_of_passengers}")
+                self._classifiy(cust)
+
+                if not cust.wanted_type:
+                    continue
+
+            driver_lock.acquire()
+            cust_queue.put(cust)
+            driver_lock.release()
+
+            # driver can go homer after finished
+        for driver in drivers:
+            driver.stop()
+            sleep(0.1)  # give some time for the clerk to put more trips
+            # note: to really make sure no race condition, check both trip_queue and cust_queue before stopping
+        for driver in drivers:
+            driver.join()
+        clerk.stop()
+        accountent.stop()
+        self.money = accountent.money
+        print("thats it")
 
     def work(self, clients: list[Customer], trip_number=0):
 
-        customers = clients.copy()
         self.waiting_customers = []
         self.disappointed = []
         self.trip_number = trip_number
+        customers = clients.copy()
 
         while customers or self.waiting_customers:
             # get first
             self.trip_number += 1
-
+            cust = None
+            waiting_cust = None
             if customers:
                 cust = customers.pop(0)
-                self.transctions[self.trip_number] = []
+                self.transcations[self.trip_number] = []
 
                 # initail help vars
                 cust.trip_number = self.trip_number
@@ -121,11 +189,11 @@ class TaxiStation:
                 car = self._find_car(cust)
                 if car and self._drive_customer(car, cust):
                     self._charge(cust)
-
             # try find for waiting_cust
             if self.waiting_customers and self.HELP_WAITING:
                 drive_cust(self.waiting_customers.pop(0))
-            drive_cust(cust)
+            if cust:
+                drive_cust(cust)
 
     def _find_car(self, cust) -> Car | None:
         avl_car = self.cars[cust.wanted_type]
@@ -169,23 +237,22 @@ class TaxiStation:
         price, dist_travelled = car.drive(cust.distance)
         trip_completed = True
         if dist_travelled < cust.distance:
-            info(
-                f"cust {cust.trip_number} drove {dist_travelled} out of {cust.distance}")
             self.waiting_customers.append(cust)
             trip_completed = False
             # discount for partial trip
             price = 0.85 * price
-            transaction = Transcation(f'{dist_travelled} trip', price)
-
-            info(
-                f"cust {cust.trip_number} drove {dist_travelled} out of {cust.distance}. it costs {price} and it's current bill is {cust.bill}")
+            transaction = Transcation(
+                f'{dist_travelled} trip (partial)', price)
         else:
             info(
                 f"cust {cust.trip_number} reached destination (after {dist_travelled}).")
-
+            transaction = Transcation(f'{dist_travelled} trip', price)
         cust.bill += price
-        transaction = Transcation(f'{dist_travelled} trip', price)
-        self.transctions[cust.trip_number].append(transaction)
+        info(
+            f"cust {cust.trip_number} drove {dist_travelled} out of {cust.distance}. it costs {price} and it's current bill is {cust.bill}")
+        cust.distance -= dist_travelled
+
+        self.transcations[cust.trip_number].append(transaction)
 
         return trip_completed
 
@@ -195,4 +262,153 @@ class TaxiStation:
             f"charged {cust.bill} from {cust.trip_number}. balance: {self.money}")
         cust.bill = 0
         write_recipt(f'cust_{cust.trip_number}',
-                     self.transctions[cust.trip_number], cust.recipt_type)
+                     self.transcations[cust.trip_number], cust.recipt_type)
+
+
+class Driver(threading.Thread):
+
+    _stop_event = False
+    _activated = True
+
+    def __init__(self, threadID, trans: dict):
+        self.threadID = threadID
+        self.lock = driver_lock
+        self.transcations = trans
+        info(f"worker {threadID} initalized")
+        super().__init__()
+
+    def drive_cust(self, cust: Customer, car: Car):
+        price, dist_travelled = car.drive(cust.distance)
+        trip_completed = True
+        if dist_travelled < cust.distance:
+            clrek_lock.acquire()
+            cust_queue.put(cust)
+            clrek_lock.release()
+            trip_completed = False
+            # discount for partial trip
+            price = 0.85 * price
+            transaction = Transcation(
+                f'{dist_travelled} trip (partial)', price)
+        else:
+            info(
+                f"cust {cust.trip_number} reached destination (after {dist_travelled}).")
+            transaction = Transcation(f'{dist_travelled} trip', price)
+        cust.bill += price
+        info(
+            f"cust {cust.trip_number} drove {dist_travelled} out of {cust.distance}. it costs {price} and it's current bill is {cust.bill}")
+        cust.distance -= dist_travelled
+
+        self.transcations[cust.trip_number].append(transaction)
+
+        return trip_completed
+
+    def run(self):
+        while not self._stop_event:
+            cust = car = None
+            self.lock.acquire()
+            while not trip_queue.empty():
+                cust, car = trip_queue.get()
+                self.lock.release()
+                if car:
+                    result = self.drive_cust(cust, car)
+                    if result:
+                        self.lock.acquire()
+                        finished_custs.put(cust)
+                        self.lock.release()
+                self.lock.acquire()
+            # after inner loop
+            self.lock.release()
+
+    def stop(self):
+        self.lock.acquire()
+        self._stop_event = True
+        self.lock.release()
+
+    def stopped(self):
+        return self._stop_event
+
+
+class Clerk(threading.Thread):
+    def __init__(self, cars: CarFleet, disappointed: list):
+        self.lock = clrek_lock
+        self.cars = cars
+        self.disappointed = disappointed
+        self._stop_event = False
+        super().__init__()
+
+    def run(self):
+        while not self._stop_event:
+            cust = car = None
+            self.lock.acquire()
+            while not cust_queue.empty():
+                cust = cust_queue.get()
+                self.lock.release()
+                car = self.find_car(cust)
+                self.lock.acquire()
+                if car:
+                    driver_lock.acquire()
+                    trip_queue.put((cust, car))
+                    driver_lock.release()
+            # after inner loop
+            self.lock.release()
+
+    def find_car(self, cust):
+        avl_car = self.cars[cust.wanted_type]
+        if avl_car:
+            info(f"found available {cust.wanted_type}")
+            return avl_car
+
+        if cust.wanted_type in self.cars.car_types():
+            info(
+                f"did not find available {cust.wanted_type}. adding to line")
+            # he will wait for the right taxi to return
+            self.cust_queue.put(cust)
+        else:
+            self.disappointed.append(cust)
+            info(
+                f"no {cust.wanted_type} in station, customer added to disappointed")
+
+    def stop(self):
+        self.lock.acquire()
+        self._stop_event = True
+        self.lock.release()
+
+    def stopped(self):
+        return self._stop_event
+
+
+class Accountent(threading.Thread):
+    def __init__(self, money, trans: dict):
+        self.money = money
+        self.transcations = trans
+        self.lock = driver_lock
+        self._stop_event = False
+        super().__init__()
+
+    def run(self):
+        while not self._stop_event:
+            self.lock.acquire()
+            while not finished_custs.empty():
+                cust = finished_custs.get()
+                self.lock.release()
+                self.charge(cust)
+                self.lock.acquire()
+
+            # after inner loop
+            self.lock.release()
+
+    def charge(self, cust: Customer):
+        self.money += cust.bill
+        info(
+            f"charged {cust.bill} from {cust.trip_number}. balance: {self.money}")
+        cust.bill = 0
+        write_recipt(f'cust_{cust.trip_number}',
+                     self.transcations[cust.trip_number], cust.recipt_type)
+
+    def stop(self):
+        self.lock.acquire()
+        self._stop_event = True
+        self.lock.release()
+
+    def stopped(self):
+        return self._stop_event

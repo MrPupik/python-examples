@@ -1,0 +1,5 @@
+** transactions **
+20 trip (partial)                             34.0
+1 trip                                           2
+---- ----
+TOTAL                                         36.0

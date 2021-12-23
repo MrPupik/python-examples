@@ -1,6 +1,6 @@
 import pymysql.cursors
 from TaxiStation.customer import Customer, CustomerType
-from TaxiStation.recipts_factory import ReciptType
+from TaxiStation.recipts import ReciptType
 
 connection = None
 

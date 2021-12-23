@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import json
 import csv
+from os import write
 
 
 @dataclass
@@ -27,7 +28,8 @@ total_name = 'TOTAL'
 deafult_out_file_name = 'my_recipt'
 
 
-def write_json_recipt(*, out_file_name: str = deafult_out_file_name, transactions: list[Transcation]):
+def write_json_recipt(*, out_file_name: str = deafult_out_file_name,
+                      transactions: list[Transcation]):
     out_file_name += '.json'
     data = {trans_name: []}
     all_trans = []
@@ -60,8 +62,20 @@ def write_text_recipt(*, out_file_name: str = deafult_out_file_name, transaction
         file.write('---- ----\n'+indent_line(total_name, total))
 
 
-def write_csv_recipt(ut_file_name: str, transactions: list[Transcation]):
-    pass
+def write_csv_recipt(*, out_file_name: str = deafult_out_file_name, transactions: list[Transcation]):
+    out_file_name = out_file_name+'.csv'
+
+    with open(out_file_name, 'w', newline='') as file:
+        writer = csv.writer(file, dialect='excel')
+        row = ('product', 'price', total_name)
+        writer.writerow(row)
+        total = 0
+        for t in transactions:
+            row = (t.prod, t.price)
+            writer.writerow(row)
+            total += t.price
+        row = (None, None, total)
+        writer.writerow(row)
 
 
 _generic_recipt = {
@@ -71,11 +85,15 @@ _generic_recipt = {
 }
 
 
-def write_recipt(out_file_name: str, transactions: list[Transcation], recipt_type: ReciptType):
+def write_recipt(out_file_name: str,
+ transactions: list[Transcation], recipt_type: ReciptType):
     global _generic_recipt
     return _generic_recipt[recipt_type](out_file_name=out_file_name, transactions=transactions)
 
-    # trans = [Transcation('60 km drive', 400),
-    #          Transcation('30 km drive (partial)', 200)]
 
-    # write_text_recipt(transactions=trans)
+trans = [Transcation('60 km drive', 400),
+         Transcation('30 km drive (partial)', 200)]
+
+# write_text_recipt(transactions=trans)
+# write_json_recipt(transactions=trans)
+write_csv_recipt(transactions=trans)
