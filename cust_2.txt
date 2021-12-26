@@ -1,0 +1,4 @@
+** transactions **
+10 trip                                         60
+---- ----
+TOTAL                                           60

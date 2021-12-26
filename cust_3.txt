@@ -1,0 +1,4 @@
+** transactions **
+10 trip                                         80
+---- ----
+TOTAL                                           80

@@ -1,3 +1,4 @@
+import abc
 __doc__ = "this is the classes module. here we show OOP stuff"
 
 
@@ -179,3 +180,24 @@ class AmericanGrade(int):
 
 
 b = AmericanGrade("F")
+
+
+class abstract_player(abc.ABC):
+    @abc.abstractmethod
+    def spawn():
+        print('process game enviorment')
+
+    @abc.abstractmethod
+    def points():
+        print('calcluate points...')
+
+
+# can create instance unless impleets all abstract stuff
+class AssasinScreenPlayer(abstract_player):
+    def spawn():
+        super().spawn()
+        print('actual spawning')
+
+    def points():
+        super().points()
+        print('actual points')
