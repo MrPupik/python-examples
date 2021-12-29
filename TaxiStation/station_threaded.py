@@ -87,8 +87,14 @@ class CarFleet:
 MAX_CUST = 100
 driver_lock = threading.Lock()
 clrek_lock = threading.Lock()
+
+# queue for all trips (clerk will put here,  driver will get from here)
 trip_queue = Queue(MAX_CUST)
+
+# queue for classified customers, clerk will get here, driver and main will put
 cust_queue = Queue(MAX_CUST)
+
+# queue for finished. drive will put, accountent will get
 finished_custs = Queue(MAX_CUST)
 
 
