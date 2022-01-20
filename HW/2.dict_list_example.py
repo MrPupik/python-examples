@@ -27,9 +27,10 @@ print(
 
 
 # show off
- all_grades = {
+all_grades = {
     input(f"please enter name {n+1}\n"): int(input(f"please enter grade {n+1}\n"))
     for n in range(NUM_OF_STUDENTS)
 }
-max_grade = max([i[1] for i in all_grades.items() if i[0][0] == min(all_grades)[0]])
+max_grade = max([i[1] for i in all_grades.items()
+                if i[0][0] == min(all_grades)[0]])
 print("max grade is ", max_grade)
