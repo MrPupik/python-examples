@@ -1,248 +1,248 @@
-# # solutions
+# solutions
 
-# # 1
-# print("6+2=", 6+2)
-# print("6-2=", 6-2)
-# print("6*2=", 6*2)
+# 1
+print("6+2=", 6+2)
+print("6-2=", 6-2)
+print("6*2=", 6*2)
 
-# #####################################
+#####################################
 
-# # 2
-# print("6/2=", 6/2)
-# print("6//2=", 6//2)
-# print("6%2=", 6 % 2)
+# 2
+print("6/2=", 6/2)
+print("6//2=", 6//2)
+print("6%2=", 6 % 2)
 
-# #####################################
-# # 3
-# print("5+2=", 5+2)
-# print("5-2=", 5-2)
-# print("5*2=", 5*2)
-# print("5/2=", 5/2)
-# print("5//2=", 5//2)
-# print("5%2=", 5 % 2)
+#####################################
+# 3
+print("5+2=", 5+2)
+print("5-2=", 5-2)
+print("5*2=", 5*2)
+print("5/2=", 5/2)
+print("5//2=", 5//2)
+print("5%2=", 5 % 2)
 
-# #####################################
+#####################################
 
-# # 4
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
+# 4
+a = int(input("enter num:"))
+b = int(input("enter num:"))
 
-# c = a+b
-# d = a-b
-# e = a*b
-# f = a/b
+c = a+b
+d = a-b
+e = a*b
+f = a/b
 
-# print(a, b, c, d, e, f)
+print(a, b, c, d, e, f)
 
-# #####################################
+#####################################
 
-# # 5
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
+# 5
+a = int(input("enter num:"))
+b = int(input("enter num:"))
 
-# c = a+b
-# d = a-b
-# e = a*b
-# f = a/b
+c = a+b
+d = a-b
+e = a*b
+f = a/b
 
-# print("a  |  b	| c=a+b | d=a-b | e=a*b | f=a/b")
-# print("{0:3d}{1:4d}{2:7d}{3:7d}{4:7d}{5:10.2f}".format(a, b, c, d, e, f))
+print("a  |  b	| c=a+b | d=a-b | e=a*b | f=a/b")
+print("{0:3d}{1:4d}{2:7d}{3:7d}{4:7d}{5:10.2f}".format(a, b, c, d, e, f))
 
-# #####################################
+#####################################
 
-# # 6
+# 6
 
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
+a = int(input("enter num:"))
+b = int(input("enter num:"))
 
-# c = a+b
-# print(c)
+c = a+b
+print(c)
 
-# c = a-b
-# print(c)
+c = a-b
+print(c)
 
-# c = a*b
-# print(c)
+c = a*b
+print(c)
 
-# c = a/b
-# print(c)
+c = a/b
+print(c)
 
 
-# #####################################
+#####################################
 
-# # 7
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
-# c = int(input("enter num:"))
+# 7
+a = int(input("enter num:"))
+b = int(input("enter num:"))
+c = int(input("enter num:"))
 
-# print(a+b+c)
+print(a+b+c)
 
-# #####################################
+#####################################
 
-# # 8
-# s = 0
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# print(s)
+# 8
+s = 0
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+print(s)
 
 
-# #####################################
+#####################################
 
-# # 9
+# 9
 
-# s = 0
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# print(s)
+s = 0
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+print(s)
 
 
-# # 9
+# 9
 
-# s = 0
-# for i in range(5):
-#     a = int(input("enter num:"))
-#     s += a
+s = 0
+for i in range(5):
+    a = int(input("enter num:"))
+    s += a
 
-# print(s)
+print(s)
 
 
-# #####################################
+#####################################
 
-# # 10
+# 10
 
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
-# c = int(input("enter num:"))
-# d = int(input("enter num:"))
-# e = int(input("enter num:"))
+a = int(input("enter num:"))
+b = int(input("enter num:"))
+c = int(input("enter num:"))
+d = int(input("enter num:"))
+e = int(input("enter num:"))
 
-# print((a+b-c)*d/e)
+print((a+b-c)*d/e)
 
-# #####################################
+#####################################
 
-# # 11
+# 11
 
-# s = 0
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s -= a
-# a = int(input("enter num:"))
-# s *= a
-# a = int(input("enter num:"))
-# s /= a
+s = 0
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s -= a
+a = int(input("enter num:"))
+s *= a
+a = int(input("enter num:"))
+s /= a
 
-# print(s)
+print(s)
 
-# #####################################
+#####################################
 
-# # 12
+# 12
 
-# a = int(input("enter num:"))
-# print(a**2)
+a = int(input("enter num:"))
+print(a**2)
 
 
-# #####################################
+#####################################
 
-# # 13
-# a = int(input("Enter a number:"))
-# print("The square of", a, "is:", a**2)
+# 13
+a = int(input("Enter a number:"))
+print("The square of", a, "is:", a**2)
 
 
-# #####################################
+#####################################
 
-# # 14
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
-# c = int(input("enter num:"))
-# print("X  |  X*X")
-# print("{0:3d}{1:4d}".format(a, a**2))
-# print("{0:3d}{1:4d}".format(b, b**2))
-# print("{0:3d}{1:4d}".format(c, c**2))
+# 14
+a = int(input("enter num:"))
+b = int(input("enter num:"))
+c = int(input("enter num:"))
+print("X  |  X*X")
+print("{0:3d}{1:4d}".format(a, a**2))
+print("{0:3d}{1:4d}".format(b, b**2))
+print("{0:3d}{1:4d}".format(c, c**2))
 
 
-# #####################################
+#####################################
 
-# # 15
-# a = int(input("enter num:"))
-# b = int(input("enter num:"))
-# print(a*b/2)
+# 15
+a = int(input("enter num:"))
+b = int(input("enter num:"))
+print(a*b/2)
 
-# #####################################
+#####################################
 
-# # 16
-# a = int(input("enter num:"))
+# 16
+a = int(input("enter num:"))
 
-# print(a*0.17)
+print(a*0.17)
 
 
-# #####################################
+#####################################
 
-# # 17
+# 17
 
-# a = int(input("enter num:"))
+a = int(input("enter num:"))
 
-# print(a*1.17)
+print(a*1.17)
 
 
-# #####################################
+#####################################
 
-# # 18 + 19
-# a = int(input("enter num:"))
+# 18 + 19
+a = int(input("enter num:"))
 
-# print(a/1.17, (a/1.17)*0.17)
+print(a/1.17, (a/1.17)*0.17)
 
 
-# #####################################
+#####################################
 
-# # 20
-# s = 0
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# a = int(input("enter num:"))
-# s += a
-# print(s/5)
+# 20
+s = 0
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+a = int(input("enter num:"))
+s += a
+print(s/5)
 
 
-# #####################################
+#####################################
 
-# # 21
-# name = input("enter name:")
-# sal = int(input("enter the monthly pay:"))
-# additions = int(input("enter the sum of additions:"))
+# 21
+name = input("enter name:")
+sal = int(input("enter the monthly pay:"))
+additions = int(input("enter the sum of additions:"))
 
-# print(name, "salary is", sal*0.9 + additions)
+print(name, "salary is", sal*0.9 + additions)
 
 
-# #####################################
+#####################################
 
-# # 22
-# b = int(input("enter ammount of blue:"))
-# r = int(input("enter ammount of red:"))
-# g = int(input("enter ammount of green:"))
-# y = int(input("enter ammount of yellow:"))
+# 22
+b = int(input("enter ammount of blue:"))
+r = int(input("enter ammount of red:"))
+g = int(input("enter ammount of green:"))
+y = int(input("enter ammount of yellow:"))
 
-# print(r*75 + y*80 + g*100 + b*120)
+print(r*75 + y*80 + g*100 + b*120)
 
 
 # 22 with dict
