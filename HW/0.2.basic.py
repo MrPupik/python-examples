@@ -1,10 +1,10 @@
-
 #################################################
 
 
 # 1
 
 import sys
+
 a = int(input("enter number:"))
 if a >= 0:
     print("yes")
@@ -34,11 +34,11 @@ b = int(input("enter number:"))
 op = int(input("enter op:"))
 
 if op == 1:
-    print(a+b)
+    print(a + b)
 elif op == 2:
-    print(a-b)
+    print(a - b)
 else:
-    sys.exit(0)
+    print("invalid operation. please enter one of: 1,2")
 
 
 #################################################
@@ -50,7 +50,7 @@ first = input("enter first name:")
 last = input("enter last name:")
 g = input("enter gender (m/f)")
 
-if g == 'm':
+if g == "m":
     s = "Mr."
 else:
     s = "Mrs."
@@ -173,7 +173,7 @@ years = int(input("enter years:"))
 claims = int(input("enter claims:"))
 price = int(input("enter base price:"))
 if years > 5 and claims < 10:
-    print(price*0.85)
+    print(price * 0.85)
 else:
     print(price)
 
@@ -186,7 +186,7 @@ years = int(input("enter years:"))
 claims = int(input("enter claims:"))
 price = int(input("enter base price:"))
 if years > 5 or claims < 10:
-    print(price*0.85)
+    print(price * 0.85)
 else:
     print(price)
 
@@ -210,7 +210,7 @@ else:
 a = int(input("enter edge a:"))
 b = int(input("enter edge b:"))
 c = int(input("enter edge c :"))
-if (a < b+c) and (b < a+c) and (c < a+b):
+if (a < b + c) and (b < a + c) and (c < a + b):
     print("legal")
 else:
     print("not legal")
