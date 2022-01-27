@@ -1,12 +1,11 @@
-## steps to build interactive cmd
+# steps to build interactive cmd
 # setup (like getting first two numbers in first example)
 #  main loop - while(not finish)
 # show menu
 # function for every option
 # use user input / data to decide which actions to run
 # show menu again
-## 
-
+##
 
 
 # cmd that gets 2 numbers, shows menu that allows user to choose:
@@ -24,22 +23,22 @@ def show_menu(num1=2, num2=1):
 def get_option(num1, num2):
     show_menu(num1, num2)
     option = input()
-    while not option.isdigit() and (option < 1 or option > 5):
+    while (not option.isdigit()) or (int(option) < 1 or int(option) > 5):
         print("Error: invalid option")
         show_menu(num1, num2)
         option = input()
     return int(option)
 
 
-def add(num1, num2):
+def str_add(num1, num2):
     return f'{str(num1)} + {str(num2)} = {num1+num2}'
 
 
-def mul(num1, num2):
+def str_mul(num1, num2):
     return f'{str(num1)} * {str(num2)} = {num1*num2}'
 
 
-def sub(num1, num2):
+def str_sub(num1, num2):
     return f'{str(num1)} - {str(num2)} = {num1-num2}'
 
 
@@ -53,24 +52,43 @@ def get_two_numbers():
     return (int(num1), int(num2))
 
 
-def main():
+def two_number_action():
     num1, num2 = get_two_numbers()
     finish = False
     result = ''
     while not finish:
         option = get_option(num1, num2)
         if option == 1:
-            result = mul(num1, num2)
+            result = str_mul(num1, num2)
         elif option == 2:
-            result = add(num1, num2)
+            result = str_add(num1, num2)
         elif option == 3:
-            result = sub(num1, num2)
+            result = str_sub(num1, num2)
         elif option == 4:
-            result = sub(num2, num1)
+            result = str_sub(num2, num1)
         else:
             result = "Thank you, have a nice day :)"
             finish = True
         print(result)
 
 
-main()
+two_number_action()
+
+
+# calculator
+
+
+def add(num1, num2):
+    return num1+num2
+
+
+def mul(num1, num2):
+    return num1*num2
+
+
+def sub(num1, num2):
+    return num1-num2
+
+
+def divide(num1, num2):
+    return num1 / num2
