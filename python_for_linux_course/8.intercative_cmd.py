@@ -116,15 +116,45 @@ def get_option():
 
 
 def get_number():
-    # get number from user
+    number = input("enter number ")
+    while not number.isdigit():
+        print("error: not a number")
+        number = input("enter number ")
+
+    return int(number)
+
     # check it is a number
     # return it
     pass
 
 
-def caclulator_main_loop():
+def calculator_main_loop():
     finish = False
     result = 0
+    new_result = None
     while not finish:
-        # ...
-        pass
+        option = get_option()
+        print("option is: ", option)
+        if option == 5:
+            finish = True
+            print("love you, bye")
+            continue
+        else:
+            number = get_number()
+        if option == 1:
+            new_result = add(result, number)
+            print(f'{result} + {number} = {new_result}')
+        elif option == 2:
+            new_result = sub(result, number)
+            print(f'{result} - {number} = {new_result}')
+        elif option == 3:
+            new_result = mul(result, number)
+            print(f'{result} * {number} = {new_result}')
+        elif option == 4:
+            new_result = divide(result, number)
+            print(f'{result} / {number} = {new_result}')
+
+        result = new_result
+
+
+calculator_main_loop()

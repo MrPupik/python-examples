@@ -91,6 +91,9 @@ def get_numbers():
 
 
 def get_avg(lst):
+    """returns the avarage of the items in list  
+
+       `lst`: list of numbers"""
     return sum(lst) / len(lst)
 
 
