@@ -8,8 +8,15 @@
 ##
 
 
+####################### simple example #######################
+
 # cmd that gets 2 numbers, shows menu that allows user to choose:
 # multiply numbers, sum the numbers, first minus last / last minus first
+
+import getpass
+from dataclasses import dataclass
+from pprint import pprint
+
 
 def show_menu(num1=2, num2=1):
     print(f"you entered {num1}, {num2}. choose option:")
@@ -75,7 +82,7 @@ def two_number_action():
 # two_number_action()
 
 
-# calculator
+####################### calculator #######################
 
 
 def add(num1, num2):
@@ -94,23 +101,34 @@ def divide(num1, num2):
     return num1 / num2
 
 
+actions = {
+    '+': add,
+    '-': sub,
+    '*': mul,
+    '/': divide
+}
+
+
 def show_menu():
-    print(f"choose action:")
-    print("   1. add")
-    print("   2. subtruct")
-    print("   3. multiply")
-    print("   4. divide")
-    print("   5. exit\n")
+    print(f"choose action: + | - | * | / and number")
+    print("   enter 'x' to exit\n")
 
 
 def get_option():
     show_menu()
-    option = input()
-    while (not option.isdigit()) or (int(option) < 1 or int(option) > 5):
-        print("Error: invalid option")
-        show_menu()
-        option = input()
-    return int(option)
+    valid_actions = list(actions.keys()) + ['x']
+    valid = False
+    data = None
+    while (not valid):
+        eq = input()
+        data = eq.split()  # like ['+', 4]
+        valid = len(data) == 2 and (
+            data[0] in valid_actions) and data[1].isdigit()
+        if not valid:
+            print("Error: invalid input")
+            show_menu()
+    action, number = data
+    return action, int(number)
 
 # main loop - calc every user choi
 
@@ -133,28 +151,42 @@ def calculator_main_loop():
     result = 0
     new_result = None
     while not finish:
-        option = get_option()
-        print("option is: ", option)
-        if option == 5:
+        action, number = get_option()
+        if action == 'x':
             finish = True
             print("love you, bye")
             continue
-        else:
-            number = get_number()
-        if option == 1:
-            new_result = add(result, number)
-            print(f'{result} + {number} = {new_result}')
-        elif option == 2:
-            new_result = sub(result, number)
-            print(f'{result} - {number} = {new_result}')
-        elif option == 3:
-            new_result = mul(result, number)
-            print(f'{result} * {number} = {new_result}')
-        elif option == 4:
-            new_result = divide(result, number)
-            print(f'{result} / {number} = {new_result}')
-
+        new_result = actions[action](result, number)
+        print(f'{result} {action} {number} = {new_result}')
         result = new_result
 
+
+# def calculator_main_loop():
+#     finish = False
+#     result = 0
+#     new_result = None
+#     while not finish:
+#         option = get_option()
+#         print("option is: ", option)
+#         if option == 5:
+#             finish = True
+#             print("love you, bye")
+#             continue
+#         else:
+#             number = get_number()
+#         if option == 1:
+#             new_result = add(result, number)
+#             print(f'{result} + {number} = {new_result}')
+#         elif option == 2:
+#             new_result = sub(result, number)
+#             print(f'{result} - {number} = {new_result}')
+#         elif option == 3:
+#             new_result = mul(result, number)
+#             print(f'{result} * {number} = {new_result}')
+#         elif option == 4:
+#             new_result = divide(result, number)
+#             print(f'{result} / {number} = {new_result}')
+
+#         result = new_result
 
 calculator_main_loop()

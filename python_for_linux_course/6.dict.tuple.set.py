@@ -31,9 +31,9 @@
 # for key in employees:
 #     salaries[key] = 180*employees[key]
 
-# print(list(salaries.keys()))
-# print(list(salaries.values()))
-# print(list(salaries.items()))
+print(list(salaries.keys()))
+print(list(salaries.values()))
+print(list(salaries.items()))
 
 
 # for key, value in salaries.items():
