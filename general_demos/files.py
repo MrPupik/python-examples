@@ -2,20 +2,20 @@ import json
 import pickle
 from io import UnsupportedOperation
 file = None
-try:
-    file = open('example.txt', 'w')
-    file.write('good mornning')
-except Exception as e:
-    print("handle error")
-finally:
-    if file:
-        file.close()
+# try:
+#     file = open('example.txt', 'w')
+#     file.write('good mornning')
+# except Exception as e:
+#     print("handle error")
+# finally:
+#     if file:
+#         file.close()
 
 
 # read
+# same as file = open('example.txt', 'r')
 with open('example.txt', 'r') as file:
     content = file.read()
-
 
 # cannot read if not exist
 try:
