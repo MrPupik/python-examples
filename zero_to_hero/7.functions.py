@@ -12,25 +12,25 @@
 #     print('hello there ' + name)
 
 # scope of module
-# var = 1
-# var2 = 3
-# var3 = 2
+var = 1
+var2 = 3
+var3 = 2
 
 
-# def some_func():
-#     global var3
-#     # scope of function
-#     var = 5
-#     var3 = 4
-#     print(var)  # var of functions - 5
-#     print(var2)  # global var2 - 3
+def some_func():
+    global var3
+    # scope of function
+    var = 5
+    var3 = 4
+    print(var)  # var of functions - 5
+    print(var2)  # global var2 - 3
 
 
-# some_func()
-# print(var3)  # is 4 now
-# print(var)  # is still 1
+some_func()
+print(var3)  # is 4 now
+print(var)  # is still 1
 
-
+pass
 # print("def end")
 
 # num1 = 4
