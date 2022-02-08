@@ -19,12 +19,32 @@
 #                   }
 
 # # employees ecample from hello world file
-# employees = {'yotam': 100,
-#              'yoav': 80,
-#              'yogev': 90,
-#              'yoad': 120,
-#              'yaniv': 90}
+employees = {'yotam': 100,
+             'yoav': 80,
+             'yogev': 90,
+             'yoad': 120,
+             'yaniv': 90}
 
+
+products = {
+    'phones': {
+        'galaxy': 4300,
+        'iphone': 4800,
+    },
+    'computers':{
+        'lenovi': 3500,
+        'asus': 4400,
+        'dell': 3100,
+    },
+    'accesorries':
+    {
+        'sunglasses': 440,
+        'watch': 260,
+        'braclet': 200
+    }
+}
+
+print(products)
 
 # salaries = {}
 
