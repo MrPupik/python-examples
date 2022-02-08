@@ -151,6 +151,7 @@ def mul_by_3(num):
 
 # return multiple values
 
+
 def mul_by_3(num):
     result = num * 3
     return num, result
@@ -159,5 +160,3 @@ def mul_by_3(num):
 my_num = 9
 original, result = mul_by_3(my_num)
 print(original, result)
-
-
