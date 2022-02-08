@@ -1,14 +1,5 @@
 
-__doc__ = "this module contains varoous tools"
-from datetime import date, datetime
-
-# built in modules:
-# import sys
-# import os
-
-# modules from pypi (install using `pip install module_name`)
-# paramiko
-# requests
+my_dict = {}
 
 
 def input_int(num_range: tuple):
@@ -24,13 +15,8 @@ def input_int(num_range: tuple):
 
 
 def cool():
-    print("la la la ")
-
-
-def print_this_time():
-    """should be used only when this modle is the main module"""
-    print(datetime.now())
+    print('yoyo wshtasupp')
 
 
 if __name__ == '__main__':
-    print_this_time()
+    print("code running....")

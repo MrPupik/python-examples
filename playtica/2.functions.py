@@ -160,3 +160,54 @@ def mul_by_3(num):
 my_num = 9
 original, result = mul_by_3(my_num)
 print(original, result)
+
+
+global_var = 1
+
+# inner func
+
+
+def outer_func():
+    global global_var
+    name = 'itay'
+    my_var = 3
+
+    def inner_func(name):
+        nonlocal my_var  # now my_var is the same as 'my_var' my_var
+        my_var = 2
+
+        print("hello "+name)
+    inner_func(name)
+
+
+print(outer_func())  # hello itay
+# print(inner_func())  # error ! no such thing "inner_func"
+
+
+def gen_mul_by_6():
+
+    def mul_by_6(num):
+        return num*6
+
+    return mul_by_6
+
+
+my_func = gen_mul_by_6()
+my_func(3)  # 18
+
+
+def mul_by(multi):
+
+    def mul(num):
+        nonlocal multi
+        return num*multi
+
+    return mul
+
+
+mul_by_6 = mul_by(6)
+print(mul_by_6(3))
+mul_by_4 = mul_by(4)
+
+mul_by(6)(4)  # trippy as f***
+
