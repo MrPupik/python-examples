@@ -23,8 +23,12 @@ def input_int(num_range: tuple):
     return int(option)
 
 
-# rng = (2, 8)
-# input_int(rng)
+rng = (2, 8)
+input_int(rng)
+
+def kupa_main_loop():
+    
+
 
 
 def check_if_big(var):

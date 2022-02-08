@@ -28,8 +28,5 @@ for name, price in zip(employee_names, hourly_pay):
     print("sallary of", name, "is:", sallary)
 
 
-[(name, price) for name, price in zip(employee_names, hourly_pay)]
-
-
 [print(f"{name}'s sallary is {price*hours + 1000 if name[:2] == 'yo' else price * hours - 1000}") for name, price in zip(
     employee_names, hourly_pay)]
